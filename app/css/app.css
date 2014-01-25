@@ -1,0 +1,16 @@
+/* app css stylesheet */
+
+.bold {
+  font-weight: bold;
+}
+
+.highlight {
+  font-weight: bold;
+  background-color: pink;
+}
+
+.wip {
+  font-weight: bold;
+  background-color: pink;
+  opacity: .3;
+}
