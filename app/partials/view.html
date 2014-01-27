@@ -1,35 +1,39 @@
-<div class="bold">Decimal => Binary</div>
-<p>
 <div>
-  <label>Decimal Number</label> 
-  <input ng-model="inputDecimalNumber"></input> 
-  <button ng-click="convertToBinary(inputDecimalNumber)">Convert To Decimal</button>
-  <button ng-click="useBinaryAnswer()">Use Binary Answer</button>
+  <div class="bold">Decimal => Binary</div>
   <p>
-  Answer: <span ng-bind="outputBinaryNumber"></span>
+  <div>
+    <label>Decimal Number</label> 
+    <input ng-model="inputDecimalNumber"></input> 
+    <button ng-click="convertToBinary(inputDecimalNumber)">Convert To Decimal</button>
+    <button ng-click="useBinaryAnswer()">Use Binary Answer</button>
+    <p>
+    Answer: <span ng-bind="outputBinaryNumber"></span>
+  </div>
 </div>
 <hr>
-<div class="bold">Binary => Decimal</div>
-<p>
 <div>
-  <label>Binary Number</label>
-  <input ng-model="inputBinaryNumber"></input>
-  <button ng-click="convertToDecimal(inputBinaryNumber)">Convert To Binary</button>
-  <button ng-click="useDecimalAnswer()">Use Decimal Answer</button>
+  <div class="bold">Binary => Decimal</div>
   <p>
-  Answer: <span ng-bind="outputDecimalNumber"></span>
-</div>
-<hr>
-<div class="wip">
-  <div class="bold">Binary Scientific Notation => Decimal</div>
-  <p>
-  <div ng-controller="scientificNotation">
-    <label>Binary Scientific Number</label>
+  <div>
+    <label>Binary Number</label>
     <input ng-model="inputBinaryNumber"></input>
     <button ng-click="convertToDecimal(inputBinaryNumber)">Convert To Binary</button>
     <button ng-click="useDecimalAnswer()">Use Decimal Answer</button>
     <p>
     Answer: <span ng-bind="outputDecimalNumber"></span>
+  </div>
+</div>
+<hr>
+<div>
+  <div class="bold">Binary Scientific Notation => Decimal</div>
+  <p>
+  <div ng-controller="scientificNotation">
+    <label>Binary Scientific Number</label>
+    <input ng-model="inputBinaryNumber"></input>
+    <button ng-click="convertScientificBinaryToDecimal(inputBinaryNumber)">Convert To Binary</button>
+    <button ng-click="useDecimalAnswer()">Use Decimal Answer</button>
+    <p>
+    Answer: <span ng-bind="outputScientificDecimalNumber"></span>
   </div>
 </div>
 <hr>

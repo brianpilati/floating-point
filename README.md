@@ -11,7 +11,7 @@ Of course, there is always the IEEE 754 standard that I could look-up but ...
 
 TODO
 =============
-I realized that I need to convert some of my controllers to services so I can inject them into the original controllers
+Start to convert decimal fractions to binary
 
 
 Examples

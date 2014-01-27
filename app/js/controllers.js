@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['ngSanitize']).
+angular.module('myApp.controllers', ['ngSanitize', 'scientificNotation']).
   controller('scientificNotation', ["$scope", "$rootScope", function($scope, $rootScope) {
     $scope.convert = function(inputNumber) {
       console.log("inputNumber: " + inputNumber);
@@ -11,12 +11,22 @@ angular.module('myApp.controllers', ['ngSanitize']).
       console.log();
     }
   }])
-  .controller('floatingPointCtrl', ["$scope", "$sce", function($scope, $sce) {
+  .controller('floatingPointCtrl', ["$scope", "$sce", "scientificNotation", function($scope, $sce, scientificNotation) {
     $scope.examples = [
       {
         'question' : '24 converted to binary is:',
         'expectedAnswer' : '00011000',
         'jsAnswer' : parseInt(24,10).toString(2)
+      },
+      {
+        'question' : '00011000 converted to decimal is:',
+        'expectedAnswer' : '24',
+        'jsAnswer' : parseInt('00011000',2).toString(10)
+      },
+      {
+        'question' : '1.0 x 2^3 converted to decimal is:',
+        'expectedAnswer' : '8',
+        'jsAnswer' : parseInt('1.0', 2).toString(10) * Math.pow(2,3)
       },
       {
         'question' : '0.1 + 0.2',
@@ -54,23 +64,16 @@ angular.module('myApp.controllers', ['ngSanitize']).
       $scope.outputDecimalNumber = $scope.convertToDecimalMain(binaryNumber, 0, true);
     }
 
-    $scope.findScientificNotationComponents = function(scientificNumber) {
-      if (! scientificNumber.match(/^\-/)) {
-        scientificNumber = "+" + scientificNumber;
-
-      }
-      var scientificNotation = scientificNumber.match(/^(\+|-)(\d\.\d+)\s+?x\s+?2\^((-?)(\d+))/);
-      var scientificNotationObject = {
-        'significand' : scientificNotation[2],
-        'exponent' : scientificNotation[3],
-        'sign' : scientificNotation[1],
-      };
-      return scientificNotationObject;
+    $scope.convertFractionToDecimal = function(binaryNumber) {
+      $scope.outputDecimalNumber = $scope.convertToDecimalMain(binaryNumber, -1, false);
     }
 
     $scope.convertScientificBinaryToDecimal = function(scientificBinaryNumber) {
-      var scObject = $scope.findScientificNotationComponents(scientificBinaryNumber);
-      return scObject.significand * Math.pow(2,scObject.exponent);
+      var scObject = scientificNotation.findScientificNotationComponents(scientificBinaryNumber);
+      $scope.convertToDecimal(scObject.integer);
+      $scope.outputScientificDecimalNumber = $scope.outputDecimalNumber;
+      $scope.convertFractionToDecimal(scObject.fraction);
+      $scope.outputScientificDecimalNumber += $scope.outputDecimalNumber;
     }
 
     $scope.convertToBinary = function(decimalNumber) {
@@ -109,6 +112,10 @@ angular.module('myApp.controllers', ['ngSanitize']).
     }
 
     $scope.isCorrect = function(localAnswer) {
-      return (($scope.outputDecimalNumber == localAnswer) || ($scope.outputBinaryNumber == localAnswer));
+      return (
+        ($scope.outputDecimalNumber == localAnswer) || 
+        ($scope.outputBinaryNumber == localAnswer) ||
+        ($scope.outputScientificDecimalNumber == localAnswer)
+      );
     }
   }]);

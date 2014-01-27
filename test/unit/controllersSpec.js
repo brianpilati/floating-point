@@ -106,44 +106,39 @@ describe('controllers', function(){
   });
 
   describe('floatingPointCtrl', function(){
-    it('should convert scientific notation to an object', function() {
-      expect(scope.findScientificNotationComponents('1.0 x 2^0')).toEqualData(
-        {
-          'significand' : '1.0',
-          'exponent' : '0',
-          'sign' : '+',
-        }
-      );
-    });
-
-    it('should convert scientific notation to an object', function() {
-      expect(scope.findScientificNotationComponents('1.101 x 2^-10')).toEqualData(
-        {
-          'significand' : '1.101',
-          'exponent' : '-10',
-          'sign' : '+',
-        }
-      );
-    });
-
-    it('should convert scientific notation to an object', function() {
-      expect(scope.findScientificNotationComponents('-1.011 x 2^-3')).toEqualData(
-        {
-          'significand' : '1.011',
-          'exponent' : '-3',
-          'sign' : '-',
-        }
-      );
-    });
-  });
-
-  describe('floatingPointCtrl', function(){
     it('should convert scientific binary to decimal', function() {
-      expect(scope.convertScientificBinaryToDecimal('0.0 x 2^0')).toBe(0);
+      scope.convertScientificBinaryToDecimal('0.0 x 2^0');
+      expect(scope.outputScientificDecimalNumber).toBe(0);
     });
 
     it('should convert scientific binary to decimal', function() {
-      expect(scope.convertScientificBinaryToDecimal('1.0 x 2^0')).toBe(1);
+      scope.convertScientificBinaryToDecimal('1.0 x 2^0');
+      expect(scope.outputScientificDecimalNumber).toBe(1);
+    });
+
+    it('should convert scientific binary to decimal', function() {
+      scope.convertScientificBinaryToDecimal('1.1 x 2^1');
+      expect(scope.outputScientificDecimalNumber).toBe(1.5);
+    });
+
+    it('should convert scientific binary to decimal', function() {
+      scope.convertScientificBinaryToDecimal('1.111 x 2^1');
+      expect(scope.outputScientificDecimalNumber).toBe(1.875);
+    });
+
+    it('should convert scientific binary to decimal', function() {
+      scope.convertScientificBinaryToDecimal('1.0 x 2^3');
+      expect(scope.outputScientificDecimalNumber).toBe(8);
+    });
+
+    it('should convert scientific binary to decimal', function() {
+      scope.convertScientificBinaryToDecimal('1.1 x 2^2');
+      expect(scope.outputScientificDecimalNumber).toBe(3);
+    });
+
+    it('should convert scientific binary to decimal', function() {
+      scope.convertScientificBinaryToDecimal('1.0000111 x 2^5');
+      expect(scope.outputScientificDecimalNumber).toBe(33.75);
     });
   });
 });
