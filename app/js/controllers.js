@@ -2,15 +2,7 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', ['ngSanitize', 'scientificNotation']).
-  controller('scientificNotation', ["$scope", "$rootScope", function($scope, $rootScope) {
-    $scope.convert = function(inputNumber) {
-      console.log("inputNumber: " + inputNumber);
-      console.log("rootScope: " + $rootScope.inputBinaryNumber);
-      console.log($rootScope);
-      console.log();
-    }
-  }])
+angular.module('myApp.controllers', ['ngSanitize', 'scientificNotation'])
   .controller('floatingPointCtrl', ["$scope", "$sce", "scientificNotation", function($scope, $sce, scientificNotation) {
     $scope.examples = [
       {
